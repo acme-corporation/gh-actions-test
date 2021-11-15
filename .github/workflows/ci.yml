@@ -28,6 +28,9 @@ jobs:
       with:
         node-version: 12
 
+    - name: Install Dependencies
+      run: npm install
+
     - name: Code QA
       run: npm run lint -- --no-fix
 
