@@ -1,0 +1,46 @@
+{
+  "name": "gh-actions-test",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "jest --ci",
+    "lint": "eslint --fix index.js tests/**"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/acme-corporation/gh-actions-test.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/acme-corporation/gh-actions-test/issues"
+  },
+  "homepage": "https://github.com/acme-corporation/gh-actions-test#readme",
+  "devDependencies": {
+    "eslint": "^8.2.0",
+    "eslint-plugin-jest": "^25.2.4",
+    "jest": "^27.3.1"
+  },
+  "eslintConfig": {
+    "env": {
+      "browser": false,
+      "node": true,
+      "commonjs": true,
+      "es2021": true
+    },
+    "extends": [
+      "eslint:recommended",
+      "plugin:jest/all"
+    ],
+    "parserOptions": {
+      "ecmaVersion": 12
+    },
+    "rules": {
+      "indent": [
+        "error",
+        4
+      ]
+    }
+  }
+}
