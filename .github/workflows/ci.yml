@@ -38,7 +38,7 @@ jobs:
       - name: Run Checks
         id: run-checks
         run: |
-          echo ::set-output name=head-tag::$([ "${{ github.ref }}" == "refs/heads/*" ] && git tag --points-at HEAD)
+          echo ::set-output name=head-tag::$(git tag --points-at HEAD)
           echo ::set-output name=is-external-pr::$([ "${{ github.event_name }}" == "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.event.pull_request.base.repo.full_name }}" ] && echo 'true')
 
   ci:
