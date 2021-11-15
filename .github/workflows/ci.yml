@@ -7,6 +7,8 @@ on:
   push:
     branches:
     - '**'
+    tags:
+    - '**'
 
   # Trigger the workflow on all pull requests
   pull_request: ~
@@ -45,7 +47,7 @@ jobs:
 
   cd:
     name: cd
-    if: github.event_name == 'release'
+    if: github.event_name == 'release' || contains(github.ref, 'refs/tags/')
     needs:
     - ci
     runs-on: ubuntu-20.04
