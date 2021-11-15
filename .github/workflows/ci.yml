@@ -13,11 +13,6 @@ on:
   # Trigger the workflow on all pull requests
   pull_request: ~
 
-  # Run workflow on release event
-  release:
-    types:
-    - published
-
   # Allow workflow to be dispatched on demand
   workflow_dispatch: ~
 
@@ -67,7 +62,7 @@ jobs:
 
   cd:
     name: cd
-    if: github.event_name == 'release' || contains(github.ref, 'refs/tags/')
+    if: github.event_name == 'push' && contains(github.ref, 'refs/tags/')
     needs:
     - ci
     runs-on: ubuntu-20.04
