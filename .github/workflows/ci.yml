@@ -28,10 +28,11 @@ jobs:
         uses: actions/checkout@v2
 
       - name: Fetch Tags
-        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+        run: git fetch --depth=1 origin +refs/tags/*:refs/tags/* || echo No tags found
 
       - name: Run Checks
         id: run-checks
+        shell: bash -eux {0}
         run: |
           echo ::set-output name=head-tag::$(git tag --points-at HEAD)
           echo ::set-output name=is-external-pr::$([ "${{ github.event_name }}" == "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.event.pull_request.base.repo.full_name }}" ] && echo 'true')
