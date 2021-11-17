@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-20.04
     outputs:
       head-tag: ${{ steps.run-checks.outputs.head-tag }}
-      is-external-pr: ${{ steps.run-checks.outputs.is-external-pr }}
     steps:
       - name: Checkout
         uses: actions/checkout@v2
@@ -34,13 +33,12 @@ jobs:
         id: run-checks
         run: |
           echo ::set-output name=head-tag::$(git tag --points-at HEAD)
-          echo ::set-output name=is-external-pr::$([ "${{ github.event_name }}" == "pull_request" ] && [ "${{ github.event.pull_request.head.repo.full_name }}" != "${{ github.event.pull_request.base.repo.full_name }}" ] && echo 'true')
 
   ci:
     name: ci
     needs:
     - checks
-    if: (github.event_name == 'push' && (needs.checks.outputs.head-tag == '' || contains(github.ref, 'refs/tags/'))) || (github.event_name == 'pull_request' && needs.checks.outputs.is-external-pr == 'true')
+    if: (github.event_name == 'push' && (needs.checks.outputs.head-tag == '' || contains(github.ref, 'refs/tags/'))) || (github.event_name == 'pull_request' && github.event.pull_request.head.repo.full_name != github.event.pull_request.base.repo.full_name)
     runs-on: ubuntu-20.04
     steps:
     - name: Checkout Repository
